@@ -55,7 +55,7 @@ export default function Import() {
                 </div>
                 <TextInput value={privateKey} setValue={setPrivateKey} label="Приватный ключ или фраза" />
             </div>
-            <div className="fixed bottom-14 left-0 w-full max-w-[420px]">
+            <div className="fixed bottom-14 w-full max-w-[420px] left-1/2 -translate-x-1/2">
                 <div className={`${isComplete ? '' : 'translate-y-96' } duration-300 absolute left-0 w-full transition-transform px-2`}>
                     <div className={` bg-green-500 text-center flex justify-center items-center leading-none mb-2 h-11 rounded-xl font-semibold`}>
                         КОШЕЛЁК ПРИВЯЗАН
