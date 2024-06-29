@@ -1,4 +1,4 @@
-export default function BnbLogo({ width, height } : { width: string, height: string }) {
+export default function BnbLogo({ width, height } : { width?: string, height?: string }) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width={width || "28"} height={height || "28"} viewBox="0 0 32 32">
             <g fill="none">
