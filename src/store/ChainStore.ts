@@ -40,7 +40,6 @@ class ChainStore {
     const foundChain = this.chains.find(chain => chain.name === chainName);
     if (foundChain) {
       this.currentChain = foundChain;
-      localStorage.setItem('currentChain', chainName);
     } else {
       console.error(`Chain '${chainName}' not found.`);
     }
