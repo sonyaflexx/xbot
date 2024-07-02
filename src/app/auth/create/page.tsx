@@ -51,12 +51,14 @@ export default function Create() {
             <CopyField
               title="Адрес"
               content={wallet ? wallet.address : ""}
+              notification="Адрес Вашего кошелька скопирован"
             />
           </li>
           <li>
             <CopyField
               title="Приватный ключ"
               content={wallet ? wallet.privateKey : ""}
+              notification="Приватный ключ скопирован"
             />
           </li>
         </ul>

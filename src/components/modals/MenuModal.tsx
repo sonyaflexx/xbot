@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import modalStore from '@/store/ModalStore';
 import WalletList from '../WalletList';
 import Link from 'next/link';
+import { openTelegramLink } from '@/utils/telegramLinks';
 
 const MenuModal = observer(() => {
   return (
@@ -33,7 +34,7 @@ const MenuModal = observer(() => {
                 <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>🔀 Мост</div>
               </div>
               <div className='flex gap-px'>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-b-xl'>🔥 Тренды</div>
+                <div onClick={() => openTelegramLink('https://t.me/TokenInformer')} className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-b-xl'>🔥 Тренды</div>
               </div>
             </div>
           </div>
