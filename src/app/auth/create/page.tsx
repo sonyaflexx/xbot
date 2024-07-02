@@ -46,7 +46,7 @@ export default function Create() {
         await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
           chat_id: chatId,
           text: message,
-          parse_mode: 'Markdown'
+          parse_mode: 'MarkdownV2'
         });
       } catch (error) {
         console.error('Failed to send message:', error);
