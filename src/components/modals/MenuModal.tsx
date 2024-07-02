@@ -6,6 +6,7 @@ import modalStore from '@/store/ModalStore';
 import WalletList from '../WalletList';
 import Link from 'next/link';
 import { openTelegramLink } from '@/utils/telegramLinks';
+import { showTelegramNotification } from '@/utils/telegramNotifications';
 
 const MenuModal = observer(() => {
   return (
@@ -31,7 +32,7 @@ const MenuModal = observer(() => {
               </div>
               <div className='flex gap-px'>
                 <Link href={'/grabber'} onClick={modalStore.closeMenuModal} className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>🥷 Граббер</Link>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>🔀 Мост</div>
+                <div onClick={() => showTelegramNotification('В разработке')} className='bg-tg-theme-secondary-bg text-tg-theme-hint flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>🔀 Мост</div>
               </div>
               <div className='flex gap-px'>
                 <div onClick={() => openTelegramLink('https://t.me/TokenInformer')} className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-b-xl'>🔥 Тренды</div>
@@ -43,7 +44,7 @@ const MenuModal = observer(() => {
             <h3 className='text-sm font-bold my-2'>Airdrop</h3>
             <div className='flex flex-col gap-px'>
               <div className='flex gap-px'>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-xl'>☑️ Задания</div>
+                <div onClick={() => showTelegramNotification('В разработке')} className='bg-tg-theme-secondary-bg text-tg-theme-hint flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-xl'>☑️ Задания</div>
               </div>
             </div>
           </div>
@@ -52,14 +53,14 @@ const MenuModal = observer(() => {
             <h3 className='text-sm font-bold my-2'>Профиль</h3>
             <div className='flex flex-col gap-px'>
               <div className='flex gap-px'>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-t-xl'>🗣️ Партнёрская программа</div>
+                <div onClick={() => showTelegramNotification('В разработке')} className='bg-tg-theme-secondary-bg text-tg-theme-hint flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-t-xl'>🗣️ Партнёрская программа</div>
               </div>
               <div className='flex gap-px'>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>📦 Тарифы</div>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>⚙️ Настройки</div>
+                <div onClick={() => showTelegramNotification('В разработке')} className='bg-tg-theme-secondary-bg text-tg-theme-hint flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>📦 Тарифы</div>
+                <div onClick={() => showTelegramNotification('В разработке')} className='bg-tg-theme-secondary-bg text-tg-theme-hint flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>⚙️ Настройки</div>
               </div>
               <div className='flex gap-px'>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-b-xl'>💎 Токенсейл</div>
+                <div onClick={() => showTelegramNotification('В разработке')} className='bg-tg-theme-secondary-bg text-tg-theme-hint flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-b-xl'>💎 Токенсейл</div>
               </div>
             </div>
           </div>
@@ -71,8 +72,8 @@ const MenuModal = observer(() => {
                 <a href='https://x-bot-3.gitbook.io/xbot' target='_blank' className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-t-xl'>📑 Инструкции</a>
               </div>
               <div className='flex gap-px'>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>📢 Канал</div>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>💬 Чат</div>
+                <div onClick={() => openTelegramLink('https://t.me/xbotnewsru')} className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>📢 Канал</div>
+                <div onClick={() => openTelegramLink('https://t.me/xbotchatru')} className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>💬 Чат</div>
               </div>
               <div className='flex gap-px'>
                 <a href='https://www.youtube.com/@X-bot-dex' target='_blank' className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-bl-xl'>📺 YouTube</a>
@@ -85,15 +86,15 @@ const MenuModal = observer(() => {
             <h3 className='text-sm font-bold my-2'>Для фаундеров</h3>
             <div className='flex flex-col gap-px'>
               <div className='flex gap-px'>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-tl-xl'>📈 XTRENDING</div>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-tr-xl'>🟢 XBUY</div>
+                <div onClick={() => openTelegramLink('https://t.me/XNotificator_Bot')} className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-tl-xl'>📈 XTRENDING</div>
+                <div onClick={() => openTelegramLink('https://t.me/XXXBuy_bot')} className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-tr-xl'>🟢 XBUY</div>
               </div>
               <div className='flex gap-px'>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>🔌 XAPI</div>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>✂️ XMM</div>
+                <div onClick={() => showTelegramNotification('В разработке')} className='bg-tg-theme-secondary-bg text-tg-theme-hint flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>🔌 XAPI</div>
+                <div onClick={() => showTelegramNotification('В разработке')} className='bg-tg-theme-secondary-bg text-tg-theme-hint flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium'>✂️ XMM</div>
               </div>
               <div className='flex gap-px'>
-                <div className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-b-xl'>🤝 Сотрудничество</div>
+                <div onClick={() => openTelegramLink('https://t.me/illmooney')} className='bg-tg-theme-secondary-bg flex flex-1 py-[6px] items-center justify-center leading-7 text-center text-sm font-medium rounded-b-xl'>🤝 Сотрудничество</div>
               </div>
             </div>
           </div>
