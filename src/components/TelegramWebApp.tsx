@@ -16,21 +16,7 @@ const TelegramWebApp = () => {
       console.error('Telegram WebApp is not defined');
     }
   }, []);
-
-  const sendMessage = () => {
-    if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.sendData("Привет от Next.js приложения!");
-    } else {
-      console.error('Telegram WebApp is not defined');
-    }
-  };
-
-  return (
-    <div>
-      <h1>Telegram Web App</h1>
-      <button onClick={sendMessage}>Отправить сообщение</button>
-    </div>
-  );
+  return null;
 };
 
 export default TelegramWebApp;

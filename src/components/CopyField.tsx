@@ -1,16 +1,19 @@
 import React from 'react';
 import CopyIcon from './icons/CopyIcon';
+import { showTelegramNotification } from '@/utils/telegramNotifications';
 
 interface CopyFieldProps {
   title: string;
   content: string;
+  notification?: string;
 }
 
-const CopyField: React.FC<CopyFieldProps> = ({ title, content }) => {
+const CopyField: React.FC<CopyFieldProps> = ({ title, content, notification }) => {
   const isContentEmpty = content === "";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(content);
+    if (notification) showTelegramNotification(notification);
   }
 
   return (

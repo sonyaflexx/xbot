@@ -3,12 +3,14 @@
 import WalletStore from "@/store/WalletStore";
 import CopyIcon from "./icons/CopyIcon";
 import { observer } from "mobx-react-lite";
+import { showTelegramNotification } from "@/utils/telegramNotifications";
 
 const WalletInfo = observer(() => {
     const { currentWallet } = WalletStore;
 
     const handleCopy = (content: any) => {
         content && navigator.clipboard.writeText(content);
+        showTelegramNotification("Адрес Вашего кошелька скопирован");
     }
 
     return (

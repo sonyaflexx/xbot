@@ -50,8 +50,8 @@ const EditWalletModal = observer(() => {
         <div className="bg-tg-theme-bg px-4 flex flex-col gap-2">
           <div className="flex flex-col gap-2 mt-2">
             <TextInput label="Название" value={title} setValue={setTitle} />
-            <CopyField title="Адрес" content={walletToEdit.address} />
-            <CopyField title="Приватный ключ" content={walletToEdit.privateKey} />
+            <CopyField title="Адрес" content={walletToEdit.address} notification='Адрес Вашего кошелька скопирован' />
+            <CopyField title="Приватный ключ" content={walletToEdit.privateKey} notification='Приватный ключ скопирован' />
           </div>
         </div>
         <div className="absolute bottom-0 left-0 w-full flex">
