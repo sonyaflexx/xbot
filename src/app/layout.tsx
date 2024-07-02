@@ -24,6 +24,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
           rel="stylesheet"
         />
+        <script async src="https://telegram.org/js/telegram-web-app.js"></script>
       </head>
       <body className={inter.className}>
         <Providers>
