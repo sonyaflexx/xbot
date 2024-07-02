@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-// import 'uikit/dist/css/uikit.min.css';
-// import 'uikit/dist/js/uikit.min.js';
-// import 'uikit/dist/js/uikit-icons.min.js';
 import Header from "@/components/Header";
 import Providers from "./Providers";
+import TelegramWebApp from "@/components/TelegramWebApp";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +28,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Header />
+          <TelegramWebApp />
           {children}
         </Providers>
       </body>
