@@ -5,6 +5,7 @@ import TextInput from '@/components/TextInput';
 import ChainStore from '@/store/ChainStore';
 import Image from 'next/image';
 import { ethers } from 'ethers';
+import { useRouter } from 'next/navigation';
 
 export default function Tokens() {
     const [tokenAddress, setTokenAddress] = useState('');
@@ -12,6 +13,24 @@ export default function Tokens() {
         name: '',
         balance: '',
     });
+
+    const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
+    const tg = window.Telegram.WebApp;
+
+    tg.MainButton.text = "Добавить";
+    tg.MainButton.show();
+    tg.MainButton.onClick(() => {
+      router.push('/')
+    });
+
+    return () => {
+      tg.MainButton.hide();
+    };
+  }
+  }, []);
 
     useEffect(() => {
         const loadTokenInfo = async () => {
@@ -183,14 +202,6 @@ export default function Tokens() {
                     </div>
                 </div>
             )}
-
-            <div className="fixed text-tg-theme-button-text bottom-14 left-1/2 -translate-x-1/2 w-full max-w-[420px]">
-                <div className={`duration-300 absolute left-0 w-full transition-transform px-2`}>
-                    <button className={`w-full bg-tg-theme-button mb-2 h-11 rounded-xl font-semibold uppercase`}>
-                        Добавить
-                    </button>
-                </div>
-            </div>
         </main>
     );
 }

@@ -22,9 +22,6 @@ export default function Home() {
 
     return () => {
       tg.MainButton.hide();
-      tg.MainButton.offClick(() => {
-        // Удалите логику при размонтировании компонента, если необходимо
-      });
     };
   }
   }, []);
@@ -33,7 +30,6 @@ export default function Home() {
     <main className="flex px-3 flex-col">
       <WalletInfo />
       <TokensList />
-      {/* <FloatingButton text="Добавить токен" href="/tokens" /> */}
     </main>
   );
 }

@@ -6,7 +6,8 @@ import InputWithSymbols from "@/components/InputWithSymbols";
 import OrderForm from "@/components/OrderForm";
 import ProscInput from "@/components/ProscInput";
 import Switch from "@/components/Switch";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Copytrading = () => {
     const [on, setOn] = useState(false);
@@ -17,6 +18,24 @@ const Copytrading = () => {
     const [antiMev, setAntiMev] = useState(false);
     const [sellForAddress, setSellForAddress] = useState(false);
     const [order, setOrder] = useState({});
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
+        const tg = window.Telegram.WebApp;
+
+        tg.MainButton.text = "Сохранить настройки";
+        tg.MainButton.show();
+        tg.MainButton.onClick(() => {
+        router.push('/')
+        });
+
+        return () => {
+        tg.MainButton.hide();
+        };
+    }
+    }, []);
 
     return (
         <main className="flex overflow-y-auto pb-20 px-5 flex-col">
@@ -39,13 +58,6 @@ const Copytrading = () => {
                 <Switch value={antiMev} setValue={setAntiMev} label="Anti-MEV" />
                 <Switch value={sellForAddress} setValue={setSellForAddress} label="Продавать за адресом" />
                 <OrderForm value={order} setValue={setOrder} />
-            </div>
-            <div className="fixed text-tg-theme-button-text bottom-14 left-1/2 -translate-x-1/2 w-full max-w-[420px]">
-                <div className={`duration-300 absolute left-0 w-full transition-transform px-2`}>
-                    <button className={`w-full bg-tg-theme-button mb-2 h-11 rounded-xl font-semibold uppercase`}>
-                        СОХРАНИТЬ НАСТРОЙКИ
-                    </button>
-                </div>
             </div>
         </main>
     )
