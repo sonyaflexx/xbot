@@ -16,21 +16,38 @@ export default function Tokens() {
 
     const router = useRouter();
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
-    const tg = window.Telegram.WebApp;
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
+            const tg = window.Telegram.WebApp;
 
-    tg.MainButton.text = "Добавить";
-    tg.MainButton.show();
-    tg.MainButton.onClick(() => {
-      router.push('/')
-    });
+            tg.MainButton.text = "Добавить";
+            tg.MainButton.show();
+            tg.MainButton.onClick(() => {
+            router.push('/')
+            });
 
-    return () => {
-      tg.MainButton.hide();
-    };
-  }
-  }, []);
+            return () => {
+            tg.MainButton.hide();
+            };
+        }
+    }, []);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
+            const tg = window.Telegram.WebApp;
+        
+            tg.Nav.addButton({
+            text: '< Назад',
+            onClick: () => {
+                router.push('/');
+            },
+            });
+        
+            return () => {
+            tg.Nav.removeButton('< Назад');
+            };
+        }
+    }, []);
 
     useEffect(() => {
         const loadTokenInfo = async () => {
