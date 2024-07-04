@@ -10,7 +10,7 @@ body {
 }
 
 a {
-  color: var(--tg-theme-text-css) !important;
+  color: var(--tg-theme-text-css);
   text-decoration: none !important;
 }
 
