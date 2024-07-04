@@ -9,7 +9,7 @@ export default function Home() {
       <TokensList />
       <div className="fixed bottom-14 left-1/2 -translate-x-1/2 w-full max-w-[420px]">
         <div className={`duration-300 absolute left-0 w-full transition-transform px-2`}>
-            <Link href={'/tokens'} className={`w-full bg-tg-theme-button text-tg-theme-button-text flex justify-center items-center mb-2 h-11 rounded-xl font-semibold uppercase`}>
+            <Link href={'/tokens'} className={`w-full bg-tg-theme-button text-white flex justify-center items-center mb-2 h-11 rounded-xl font-semibold uppercase`}>
                 Добавить токен
             </Link>
         </div>
