@@ -6,6 +6,7 @@ import ChainStore from '@/store/ChainStore';
 import Image from 'next/image';
 import { ethers } from 'ethers';
 import { useRouter } from 'next/navigation';
+import modalStore from '@/store/ModalStore';
 
 export default function Tokens() {
     const [tokenAddress, setTokenAddress] = useState('');
@@ -15,6 +16,9 @@ export default function Tokens() {
     });
 
     const router = useRouter();
+    const { showNetworkModal, showWalletModal, showEditWalletModal, showMenuModal, showAddWalletModal } = modalStore;
+
+    const isModalActive = showNetworkModal || showWalletModal || showEditWalletModal || showMenuModal || showAddWalletModal;
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
@@ -24,28 +28,17 @@ export default function Tokens() {
             tg.MainButton.show();
             tg.MainButton.onClick(() => {
             router.push('/')
-            });
 
-            return () => {
+            if (isModalActive) {
+                tg.MainButton.hide();
+            } else {
+                tg.MainButton.show();
+            }
+        });
+
+        return () => {
             tg.MainButton.hide();
-            };
-        }
-    }, []);
-
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
-            const tg = window.Telegram.WebApp;
-        
-            tg.Nav.addButton({
-            text: '< Назад',
-            onClick: () => {
-                router.push('/');
-            },
-            });
-        
-            return () => {
-            tg.Nav.removeButton('< Назад');
-            };
+        };
         }
     }, []);
 
