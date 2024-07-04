@@ -33,27 +33,38 @@ export default function Providers({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.expand();
-      
+      const webApp = window.Telegram.WebApp;
+
+      const handleReady = () => {
+        webApp.ready();
+        webApp.expand();
+      };
+
+      const handleResize = () => {
+        // Always force expand
+        if (webApp.isExpanded) {
+          webApp.expand();
+        } else {
+          webApp.expand();
+        }
+      };
+
+      // Ensure the WebApp is ready and expanded on load
+      handleReady();
+
+      // Add a listener for resizing to enforce full-screen mode
       window.addEventListener('resize', handleResize);
 
+      // Initial check to enforce full-screen mode
       handleResize();
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
     } else {
       console.error('Telegram WebApp is not defined');
     }
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, []);
-
-  const handleResize = () => {
-    const webApp = window.Telegram.WebApp;
-    if (webApp.viewportHeight < window.innerHeight) {
-      webApp.expand();
-    }
-  };
 
   if (!isHydrated) {
     return null; 
