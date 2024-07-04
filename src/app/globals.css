@@ -2,24 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+body {
   --foreground-rgb: #fff;
   --background: #212121;
-  --tg-theme-bg: var(--tg-theme-bg, var(--background));
-  --tg-theme-text: var(--tg-theme-text, var(--foreground-rgb));
+  --tg-theme-bg-css: var(--tg-theme-bg, var(--background));
+  --tg-theme-text-css: var(--tg-theme-text, var(--foreground-rgb));
 }
 
 a {
-  color: var(--tg-theme-text) !important;
+  color: var(--tg-theme-text-css) !important;
   text-decoration: none !important;
 }
 
 html {
-  color: var(--tg-theme-text) !important;
-  background: var(--tg-theme-bg) !important;
+  color: var(--tg-theme-text-css) !important;
+  background: var(--tg-theme-bg-css) !important;
 }
 
 body {
+  color: var(--tg-theme-text-css) !important;
+  background: var(--tg-theme-bg)-css !important;
   max-width: 420px !important;
   height: 100vh;
   margin: 0 auto !important;
