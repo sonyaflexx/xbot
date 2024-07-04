@@ -12,13 +12,13 @@ const config: Config = {
     extend: {
       colors: {
         tg: {
-          'theme-bg': 'var(--tg-theme-bg, #212121)',
+          'theme-bg': 'var(--tg-theme-bg-color, #212121)',
           'theme-button': 'var(--tg-theme-button, #8774e1)',
           'theme-button-text': 'var(--tg-theme-button-text, #ffffff)',
-          'theme-hint': 'var(--tg-theme-hint, #aaaaaa)',
+          'theme-hint': 'var(--tg-theme-hint-color, #aaaaaa)',
           'theme-link': 'var(--tg-theme-link, #8774e1)',
           'theme-secondary-bg': 'var(--tg-theme-secondary-bg-color, #181818)',
-          'theme-text': 'var(--tg-theme-text, #ffffff)',
+          'theme-text': 'var(--tg-theme-text-color, #ffffff)',
           'theme-header-bg': 'var(--tg-theme-header-bg, #212121)',
           'theme-accent-text': 'var(--tg-theme-accent-text, #8774e1)',
           'theme-section-bg': 'var(--tg-theme-section-bg, #212121)',
@@ -27,8 +27,8 @@ const config: Config = {
           'theme-destructive-text': 'var(--tg-theme-destructive-text, #ff595a)',
           main: 'var(--tg-theme-main, #8774e1)',
           maino: 'var(--tg-theme-maino, #8774e120)',
-          text: 'var(--tg-theme-text, #ffffff)',
-          bg: 'var(--tg-theme-bg, #212121)',
+          text: 'var(--tg-theme-text-color, #ffffff)',
+          bg: 'var(--tg-theme-bg-color, #212121)',
         },
       },
     },
