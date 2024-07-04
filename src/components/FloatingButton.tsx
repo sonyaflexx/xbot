@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import Link from 'next/link';
 
 interface FloatingButtonProps {
-    text: string;
-    href?: string;
-    onClick?: () => void;
+  text: string;
+  href?: string;
+  onClick?: () => void;
 }
-  
-  const FloatingButton: React.FC<FloatingButtonProps> = ({ text, href, onClick }) => {
+
+const FloatingButton: React.FC<FloatingButtonProps> = ({ text, href, onClick }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
   return ReactDOM.createPortal(
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-full max-w-[420px]">
       <div className="duration-300 absolute left-0 w-full transition-transform px-2">
