@@ -17,7 +17,7 @@ const config: Config = {
           'theme-button-text': 'var(--tg-theme-button-text, #ffffff)',
           'theme-hint': 'var(--tg-theme-hint, #aaaaaa)',
           'theme-link': 'var(--tg-theme-link, #8774e1)',
-          'theme-secondary-bg': 'var(--tg-theme-secondary-bg, #181818)',
+          'theme-secondary-bg': 'var(--tg-theme-secondary-bg-color, #181818)',
           'theme-text': 'var(--tg-theme-text, #ffffff)',
           'theme-header-bg': 'var(--tg-theme-header-bg, #212121)',
           'theme-accent-text': 'var(--tg-theme-accent-text, #8774e1)',
