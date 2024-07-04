@@ -1,5 +1,5 @@
 import { Wallet } from '@/types';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, autorun } from 'mobx';
 
 class WalletStore {
   wallets: Wallet[] = [];
@@ -7,6 +7,14 @@ class WalletStore {
 
   constructor() {
     makeAutoObservable(this);
+
+    if (typeof window !== 'undefined') {
+      this.loadFromLocalStorage();
+
+      autorun(() => {
+        this.saveToLocalStorage();
+      });
+    }
   }
 
   setWallets = (wallets: Wallet[]) => {
@@ -29,7 +37,7 @@ class WalletStore {
   deleteWallet = (walletToDelete: Wallet) => {
     this.wallets = this.wallets.filter(wallet => wallet.address !== walletToDelete.address);
     if (this.currentWallet && this.currentWallet.address === walletToDelete.address) {
-      this.currentWallet = this.wallets[0];
+      this.currentWallet = this.wallets[0] || null;
     }
   };
 
@@ -41,6 +49,24 @@ class WalletStore {
     this.wallets = [];
     this.currentWallet = null;
   };
+
+  saveToLocalStorage() {
+    localStorage.setItem('wallets', JSON.stringify(this.wallets));
+    localStorage.setItem('currentWallet', JSON.stringify(this.currentWallet));
+  }
+
+  loadFromLocalStorage() {
+    const wallets = localStorage.getItem('wallets');
+    const currentWallet = localStorage.getItem('currentWallet');
+
+    if (wallets) {
+      this.wallets = JSON.parse(wallets);
+    }
+
+    if (currentWallet) {
+      this.currentWallet = JSON.parse(currentWallet);
+    }
+  }
 }
 
 export default new WalletStore();

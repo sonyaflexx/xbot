@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, autorun } from 'mobx';
 
 interface Chain {
   name: string;
@@ -33,7 +33,14 @@ class ChainStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.setCurrentChain('Ethereum');
+
+    if (typeof window !== 'undefined') {
+      this.loadFromLocalStorage();
+  
+      autorun(() => {
+        this.saveToLocalStorage();
+      });
+    }
   }
 
   setCurrentChain = (chainName: string) => {
@@ -42,6 +49,33 @@ class ChainStore {
       this.currentChain = foundChain;
     } else {
       console.error(`Chain '${chainName}' not found.`);
+    }
+  }
+
+  saveToLocalStorage() {
+    try {
+      localStorage.setItem('currentChain', JSON.stringify(this.currentChain));
+    } catch (error) {
+      console.error('Failed to save currentChain to localStorage:', error);
+    }
+  }
+
+  loadFromLocalStorage() {
+    try {
+      const currentChain = localStorage.getItem('currentChain');
+      if (currentChain) {
+        const parsedChain = JSON.parse(currentChain);
+        if (this.chains.find(chain => chain.name === parsedChain.name)) {
+          this.currentChain = parsedChain;
+        } else {
+          console.error(`Saved chain '${parsedChain.name}' not found in available chains.`);
+        }
+      } else {
+        this.setCurrentChain('Ethereum');
+      }
+    } catch (error) {
+      console.error('Failed to load currentChain from localStorage:', error);
+      this.setCurrentChain('Ethereum');
     }
   }
 }
