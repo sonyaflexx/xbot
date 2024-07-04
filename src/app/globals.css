@@ -3,21 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
+  --foreground-rgb: #fff;
   --background: #212121;
+  --tg-theme-bg: var(--tg-theme-bg, var(--background));
+  --tg-theme-text: var(--tg-theme-text, var(--foreground-rgb));
 }
 
 a {
-  color: rgb(var(--foreground-rgb)) !important;
+  color: var(--tg-theme-text) !important;
   text-decoration: none !important;
 }
+
 html {
-  color: rgb(var(--foreground-rgb)) !important;
-  background: var(--background) !important;
+  color: var(--tg-theme-text) !important;
+  background: var(--tg-theme-bg) !important;
 }
+
 body {
-  color: rgb(var(--foreground-rgb)) !important;
-  background: var(--background) !important;
+  color: var(--tg-theme-text) !important;
+  background: var(--tg-theme-bg) !important;
   max-width: 420px !important;
   height: 100vh;
   margin: 0 auto !important;

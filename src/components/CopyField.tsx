@@ -24,7 +24,7 @@ const CopyField: React.FC<CopyFieldProps> = ({ title, content, notification }) =
                 <div className="h-6 my-1 rounded-md bg-tg-theme-hint animate-pulse" />
             ) : (
               <div className='flex items-center w-full'>
-                <input type="text" disabled value={content} className="bg-tg-theme-secondary-bg focus:outline-none h-8 flex-1 min-w-0" />
+                <input type="text" disabled value={content} className="bg-tg-theme-secondary-bg text-tg-text focus:outline-none h-8 flex-1 min-w-0" />
                 <span onClick={handleCopy} className="material-symbols-outlined text-tg-main mx-3 -mt-4 leading-none cursor-pointer">
                   <CopyIcon />
                 </span>
