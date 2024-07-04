@@ -20,8 +20,6 @@ html {
 }
 
 body {
-  color: var(--tg-theme-text) !important;
-  background: var(--tg-theme-bg) !important;
   max-width: 420px !important;
   height: 100vh;
   margin: 0 auto !important;
