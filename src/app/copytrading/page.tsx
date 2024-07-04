@@ -38,7 +38,7 @@ const Copytrading = () => {
     }, []);
 
     return (
-        <main className="flex overflow-y-auto pb-20 px-5 flex-col">
+        <main className="flex overflow-y-auto pb-5 px-5 flex-col">
             <Switch value={on} setValue={setOn} label="Включить" />
             <div>
                 <h3 className="font-bold mt-4 mb-2">Адреса для повторения</h3>
