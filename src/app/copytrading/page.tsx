@@ -40,9 +40,9 @@ const Copytrading = () => {
                 <Switch value={sellForAddress} setValue={setSellForAddress} label="Продавать за адресом" />
                 <OrderForm value={order} setValue={setOrder} />
             </div>
-            <div className="fixed text-white bottom-14 left-1/2 -translate-x-1/2 w-full max-w-[420px]">
+            <div className="fixed text-tg-theme-button-text bottom-14 left-1/2 -translate-x-1/2 w-full max-w-[420px]">
                 <div className={`duration-300 absolute left-0 w-full transition-transform px-2`}>
-                    <button className={`w-full bg-tg-main  mb-2 h-11 rounded-xl font-semibold uppercase`}>
+                    <button className={`w-full bg-tg-theme-button mb-2 h-11 rounded-xl font-semibold uppercase`}>
                         СОХРАНИТЬ НАСТРОЙКИ
                     </button>
                 </div>

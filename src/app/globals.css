@@ -5,8 +5,8 @@
 body {
   --foreground-rgb: #fff;
   --background: #212121;
-  --tg-theme-bg-css: var(--tg-theme-bg, var(--background));
-  --tg-theme-text-css: var(--tg-theme-text, var(--foreground-rgb));
+  --tg-theme-bg-css: var(--tg-theme-bg-color, var(--background));
+  --tg-theme-text-css: var(--tg-theme-text-color, var(--foreground-rgb));
 }
 
 a {

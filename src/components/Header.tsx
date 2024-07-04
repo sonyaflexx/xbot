@@ -19,7 +19,7 @@ export default function Header() {
         return (
             <header className="flex justify-between p-3 gap-2">
                 <button onClick={modalStore.openMenuModal} className="py-[6px] px-2 flex items-center rounded-xl shadow-sm shadow-neutral-900 bg-tg-theme-secondary-bg text-sm">
-                    <span className="material-symbols-outlined text-tg-main m-auto">Menu</span>
+                    <span className="material-symbols-outlined text-tg-theme-button m-auto">Menu</span>
                 </button>
                 <button onClick={modalStore.openWalletModal} className="py-[6px] px-2 flex-1 flex items-center rounded-xl shadow-sm shadow-neutral-900 bg-tg-theme-secondary-bg text-sm">
                     <div><WalletIcon /></div>
@@ -37,7 +37,7 @@ export default function Header() {
                 </div>
                 <div className="flex justify-between px-3 pb-3 gap-2">
                     <button onClick={modalStore.openMenuModal} className="py-[6px] px-2 flex items-center rounded-xl shadow-sm shadow-neutral-900 bg-tg-theme-secondary-bg text-sm">
-                        <span className="material-symbols-outlined text-tg-main m-auto">Menu</span>
+                        <span className="material-symbols-outlined text-tg-theme-button m-auto">Menu</span>
                     </button>
                     <button onClick={modalStore.openWalletModal} className="py-[6px] px-2 flex-1 flex items-center rounded-xl shadow-sm shadow-neutral-900 bg-tg-theme-secondary-bg text-sm">
                         <div><WalletIcon /></div>
@@ -56,7 +56,7 @@ export default function Header() {
                 </div>
                 <div className="flex justify-between px-3 pb-3 gap-2">
                     <button onClick={modalStore.openMenuModal} className="py-[6px] px-2 flex items-center rounded-xl shadow-sm shadow-neutral-900 bg-tg-theme-secondary-bg text-sm">
-                        <span className="material-symbols-outlined text-tg-main m-auto">Menu</span>
+                        <span className="material-symbols-outlined text-tg-theme-button m-auto">Menu</span>
                     </button>
                     <button onClick={modalStore.openWalletModal} className="py-[6px] px-2 flex-1 flex items-center rounded-xl shadow-sm shadow-neutral-900 bg-tg-theme-secondary-bg text-sm">
                         <div><WalletIcon /></div>
@@ -75,7 +75,7 @@ export default function Header() {
                 </div>
                 <div className="flex justify-between px-3 pb-3 gap-2">
                     <button onClick={modalStore.openMenuModal} className="py-[6px] px-2 flex items-center rounded-xl shadow-sm shadow-neutral-900 bg-tg-theme-secondary-bg text-sm">
-                        <span className="material-symbols-outlined text-tg-main m-auto">Menu</span>
+                        <span className="material-symbols-outlined text-tg-theme-button m-auto">Menu</span>
                     </button>
                     <button onClick={modalStore.openWalletModal} className="py-[6px] px-2 flex-1 flex items-center rounded-xl shadow-sm shadow-neutral-900 bg-tg-theme-secondary-bg text-sm">
                         <div><WalletIcon /></div>

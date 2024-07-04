@@ -91,7 +91,7 @@ const AddWalletModal = observer(() => {
           )}
         </div>
         <div className="absolute bottom-0 left-0 w-full">
-          <button onClick={method === 'create' ? createWallet : importWallet} className="h-[52px] bg-tg-main w-full rounded-b-lg text-sm font-bold text-white">
+          <button onClick={method === 'create' ? createWallet : importWallet} className="h-[52px] bg-tg-theme-button w-full rounded-b-lg text-sm font-bold text-tg-theme-button-text">
             Добавить кошелёк
           </button>
         </div>

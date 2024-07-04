@@ -61,14 +61,14 @@ export default function Import() {
                 </div>
                 <TextInput value={privateKey} setValue={setPrivateKey} label="Приватный ключ или фраза" />
             </div>
-            <div className="text-white fixed bottom-14 w-full max-w-[420px] left-1/2 -translate-x-1/2">
+            <div className="text-tg-theme-button-text fixed bottom-14 w-full max-w-[420px] left-1/2 -translate-x-1/2">
                 <div className={`${isComplete ? '' : 'translate-y-96' } duration-300 absolute left-0 w-full transition-transform px-2`}>
                     <div className={` bg-green-500 text-center flex justify-center items-center leading-none mb-2 h-11 rounded-xl font-semibold`}>
                         КОШЕЛЁК ПРИВЯЗАН
                     </div>
                 </div>
                 <div className={`${isComplete ? 'translate-y-96' : '' } duration-300 absolute left-0 w-full transition-transform px-2`}>
-                    <button onClick={importWallet} className={`w-full bg-tg-main  mb-2 h-11 rounded-xl font-semibold`}>
+                    <button onClick={importWallet} className={`w-full bg-tg-theme-button mb-2 h-11 rounded-xl font-semibold`}>
                         ПРИСТУПИТЬ К ТОРГОВЛЕ
                     </button>
                 </div>

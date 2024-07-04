@@ -22,12 +22,12 @@ const OrderForm = ({ value, setValue }: { value: any, setValue: any }) => {
                     <select
                         value={selectedOption}
                         onChange={handleSelectChange}
-                        className='text-sm text-tg-main bg-tg-theme-secondary-bg outline-none border-none pr-4 appearance-none'
+                        className='text-sm text-tg-theme-button bg-tg-theme-secondary-bg outline-none border-none pr-4 appearance-none'
                     >
                         <option value="profit">Тейк-профит</option>
                         <option value="lose">Стоп-лосс</option>
                     </select>
-                    <div className='flex items-center pointer-events-none text-tg-main'>
+                    <div className='flex items-center pointer-events-none text-tg-theme-button'>
                         <SelectIcon />
                     </div>
                 </div>
@@ -39,7 +39,7 @@ const OrderForm = ({ value, setValue }: { value: any, setValue: any }) => {
                 <GibridInput className='!bg-tg-theme-bg !border-b-tg-theme-bg' value={lose} setValue={setLose} symbols='%' label='От баланса' maxValue={95} minValue={5} step={5} />
             )}
 
-            <button className={`w-full text-white bg-tg-main mt-4 h-[52px] text-sm font-medium rounded-xl`}>
+            <button className={`w-full text-tg-theme-button-text bg-tg-theme-button mt-4 h-[52px] text-sm font-medium rounded-xl`}>
                 Создать
             </button>
         </div>

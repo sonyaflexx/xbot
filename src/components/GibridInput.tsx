@@ -11,7 +11,7 @@ const GibridInput = ({ step, minValue, maxValue, className, value, setValue, sym
                 onChange={setValue}
                 color='secondary'
                 className='my-2'
-                classNames={{ thumb: 'bg-tg-main', track: 'bg-tg-theme-bg h-[10px]', filler: 'bg-tg-main' }}
+                classNames={{ thumb: 'bg-tg-theme-button', track: 'bg-tg-theme-bg h-[10px]', filler: 'bg-tg-theme-button' }}
             />
             <InputWithSymbols className={className} type="number" value={value} setValue={setValue} symbols={symbols} label={label} />
         </div>

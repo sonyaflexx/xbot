@@ -58,7 +58,7 @@ const EditWalletModal = observer(() => {
           <button onClick={deleteWallet} className="h-[52px] bg-red-500 w-full rounded-bl-lg text-sm font-bold text-white">
             Удалить
           </button>
-          <button onClick={editWallet} className="h-[52px] bg-tg-main w-full rounded-br-lg text-sm font-bold text-white">
+          <button onClick={editWallet} className="h-[52px] bg-tg-theme-button w-full rounded-br-lg text-sm font-bold text-tg-theme-button-text">
             Сохранить
           </button>
         </div>

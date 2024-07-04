@@ -13,8 +13,8 @@ const config: Config = {
       colors: {
         tg: {
           'theme-bg': 'var(--tg-theme-bg-color, #212121)',
-          'theme-button': 'var(--tg-theme-button, #8774e1)',
-          'theme-button-text': 'var(--tg-theme-button-text, #ffffff)',
+          'theme-button': 'var(--tg-theme-button-color, #8774e1)',
+          'theme-button-text': 'var(--tg-theme-button-text-color, #ffffff)',
           'theme-hint': 'var(--tg-theme-hint-color, #aaaaaa)',
           'theme-link': 'var(--tg-theme-link, #8774e1)',
           'theme-secondary-bg': 'var(--tg-theme-secondary-bg-color, #181818)',

@@ -25,7 +25,7 @@ const WalletInfo = observer(() => {
                     <span className="text-2xl font-bold">0$</span>
                 </div>
                 <div onClick={() => handleCopy(currentWallet?.address)} className="flex flex-col items-center gap-1">
-                    <div className="text-tg-main"><CopyIcon /></div>
+                    <div className="text-tg-theme-button"><CopyIcon /></div>
                     <span className="text-sm text-tg-theme-hint text-center">Адрес</span>
                 </div>
             </div>

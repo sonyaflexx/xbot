@@ -28,7 +28,7 @@ const WalletList: React.FC = observer(() => {
       {wallets.map((wallet: Wallet, index: number) => (
         <li
           key={index}
-          className={`${wallet.address === currentWallet?.address ? 'ring-2 ring-tg-main' : ''} py-[10px] px-3 bg-tg-theme-secondary-bg rounded-xl flex items-center justify-between text-sm gap-3`}
+          className={`${wallet.address === currentWallet?.address ? 'ring-2 ring-tg-theme-button' : ''} py-[10px] px-3 bg-tg-theme-secondary-bg rounded-xl flex items-center justify-between text-sm gap-3`}
         >
           <div className="flex flex-col flex-1" onClick={() => handleClick(wallet)}>
             <span className="font-bold">{wallet.title}</span>
@@ -36,7 +36,7 @@ const WalletList: React.FC = observer(() => {
               {wallet.address.slice(0, 7)}...{wallet.address.slice(-5)}
             </span>
           </div>
-          <div onClick={() => handleEditWallet(wallet)} className="flex flex-col text-right text-tg-main">
+          <div onClick={() => handleEditWallet(wallet)} className="flex flex-col text-right text-tg-theme-button">
             <EditIcon />
           </div>
         </li>

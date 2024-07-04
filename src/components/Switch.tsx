@@ -14,7 +14,7 @@ const Switch: React.FC<SwitchProps> = ({ value, setValue, label }) => {
     return (
         <div className="flex items-center space-x-4">
             <div
-            className={`w-[60px] h-[34px] flex items-center bg-gray-300 rounded-full p-1 cursor-pointer transition-colors duration-400 ${value ? '!bg-tg-main' : 'bg-gray-300 bg-opacity-30'}`}
+            className={`w-[60px] h-[34px] flex items-center bg-gray-300 rounded-full p-1 cursor-pointer transition-colors duration-400 ${value ? '!bg-tg-theme-button' : 'bg-gray-300 bg-opacity-30'}`}
             onClick={toggleSwitch}
             >
             <div

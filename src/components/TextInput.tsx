@@ -28,12 +28,12 @@ const TextInput: React.FC<TextInputProps> = ({ value, setValue, label }) => {
         onFocus={handleFocus}
         onBlur={handleBlur}
         className={`w-full bg-tg-theme-secondary-bg px-5 pt-6 pb-2 border ${
-          isFocused ? 'border-tg-main' : 'border-tg-theme-secondary-bg'
+          isFocused ? 'border-tg-theme-button' : 'border-tg-theme-secondary-bg'
         } rounded-xl font-light outline-none transition-colors duration-300`}
       />
       <label
         className={`absolute left-4 ${
-          isFocused || value && value !== '' ? 'text-tg-main text-xs top-2' : 'text-gray-500 top-1/2 -translate-y-1/2'
+          isFocused || value && value !== '' ? 'text-tg-theme-button text-xs top-2' : 'text-gray-500 top-1/2 -translate-y-1/2'
         } transition-all pointer-events-none bg-transparent px-1`}
       >
         {label}
