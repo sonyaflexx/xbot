@@ -21,7 +21,7 @@ html {
 
 body {
   color: var(--tg-theme-text-css) !important;
-  background: var(--tg-theme-bg)-css !important;
+  background: var(--tg-theme-bg-css) !important;
   max-width: 420px !important;
   height: 100vh;
   margin: 0 auto !important;
