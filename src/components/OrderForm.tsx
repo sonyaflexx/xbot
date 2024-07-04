@@ -39,7 +39,7 @@ const OrderForm = ({ value, setValue }: { value: any, setValue: any }) => {
                 <GibridInput className='!bg-tg-theme-bg !border-b-tg-theme-bg' value={lose} setValue={setLose} symbols='%' label='От баланса' maxValue={95} minValue={5} step={5} />
             )}
 
-            <button className={`w-full bg-tg-main mt-4 h-[52px] text-sm font-medium rounded-xl`}>
+            <button className={`w-full text-white bg-tg-main mt-4 h-[52px] text-sm font-medium rounded-xl`}>
                 Создать
             </button>
         </div>
