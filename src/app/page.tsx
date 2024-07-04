@@ -2,13 +2,34 @@ import FloatingButton from "@/components/FloatingButton";
 import TokensList from "@/components/TokensList";
 import WalletInfo from "@/components/WalletInfo";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const tg = window.Telegram.WebApp;
+
+    tg.MainButton.text = "Добавить токен";
+    tg.MainButton.show();
+    tg.MainButton.onClick(() => {
+      router.push('/tokens')
+    });
+
+    return () => {
+      tg.MainButton.hide();
+      tg.MainButton.offClick(() => {
+        // Удалите логику при размонтировании компонента, если необходимо
+      });
+    };
+  }, []);
+
   return (
     <main className="flex px-3 flex-col">
       <WalletInfo />
       <TokensList />
-      <FloatingButton text="Добавить токен" href="/tokens" />
+      {/* <FloatingButton text="Добавить токен" href="/tokens" /> */}
     </main>
   );
 }
