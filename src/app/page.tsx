@@ -1,3 +1,5 @@
+'use client'
+
 import FloatingButton from "@/components/FloatingButton";
 import TokensList from "@/components/TokensList";
 import WalletInfo from "@/components/WalletInfo";
@@ -9,6 +11,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
     const tg = window.Telegram.WebApp;
 
     tg.MainButton.text = "Добавить токен";
@@ -23,6 +26,7 @@ export default function Home() {
         // Удалите логику при размонтировании компонента, если необходимо
       });
     };
+  }
   }, []);
 
   return (
