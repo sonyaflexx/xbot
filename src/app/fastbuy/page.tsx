@@ -6,6 +6,8 @@ import InputWithSymbols from "@/components/InputWithSymbols";
 import OrderForm from "@/components/OrderForm";
 import ProscInput from "@/components/ProscInput";
 import Switch from "@/components/Switch";
+import modalStore from "@/store/ModalStore";
+import { reaction } from "mobx";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -23,19 +25,31 @@ const Fastbuy = () => {
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
-        const tg = window.Telegram.WebApp;
-
-        tg.MainButton.text = "Сохранить настройки";
-        tg.MainButton.show();
-        tg.MainButton.onClick(() => {
-        router.push('/')
-        });
-
-        return () => {
-        tg.MainButton.hide();
-        };
-    }
-    }, []);
+            const tg = window.Telegram.WebApp;
+    
+            tg.MainButton.text = 'Сохранить настройки';
+            tg.MainButton.show();
+            tg.MainButton.onClick(() => {
+                router.push('/');
+            });
+    
+            const disposer = reaction(
+                () => modalStore.isModalActive,
+                (isActive: boolean) => {
+                    if (isActive) {
+                        tg.MainButton.hide();
+                    } else {
+                        tg.MainButton.show();
+                    }
+                }
+            );
+    
+            return () => {
+                tg.MainButton.hide();
+                disposer();
+            };
+        }
+      }, [modalStore.isModalActive]); 
 
     return (
         <main className="flex overflow-y-auto pb-5 px-5 flex-col">

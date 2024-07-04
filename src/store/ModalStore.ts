@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { action, computed, makeAutoObservable, observable } from "mobx";
 import { Wallet } from "@/types"; 
 
 class ModalStore {
@@ -10,9 +10,35 @@ class ModalStore {
 
   walletToEdit: Wallet | null = null;
 
-  
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {
+      showNetworkModal: observable,
+      showWalletModal: observable,
+      showEditWalletModal: observable,
+      showMenuModal: observable,
+      showAddWalletModal: observable,
+      walletToEdit: observable,
+      isModalActive: computed,
+      openNetworkModal: action,
+      closeNetworkModal: action,
+      openWalletModal: action,
+      closeWalletModal: action,
+      openAddWalletModal: action,
+      closeAddWalletModal: action,
+      openEditWalletModal: action,
+      closeEditWalletModal: action,
+      setCurrentWalletToEdit: action,
+    });
+  }
+
+  get isModalActive() {
+    return (
+      this.showNetworkModal ||
+      this.showWalletModal ||
+      this.showEditWalletModal ||
+      this.showMenuModal ||
+      this.showAddWalletModal
+    );
   }
   
   openMenuModal = () => {
@@ -58,16 +84,6 @@ class ModalStore {
   
   setCurrentWalletToEdit = (wallet: Wallet) => {
     this.walletToEdit = wallet;
-  };
-  
-  isModalActive = () => {
-    return (
-      this.showNetworkModal ||
-      this.showWalletModal ||
-      this.showEditWalletModal ||
-      this.showMenuModal ||
-      this.showAddWalletModal
-    );
   };
 }
 

@@ -16,9 +16,6 @@ export default function Tokens() {
     });
 
     const router = useRouter();
-    const { showNetworkModal, showWalletModal, showEditWalletModal, showMenuModal, showAddWalletModal } = modalStore;
-
-    const isModalActive = showNetworkModal || showWalletModal || showEditWalletModal || showMenuModal || showAddWalletModal;
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
@@ -28,12 +25,6 @@ export default function Tokens() {
             tg.MainButton.show();
             tg.MainButton.onClick(() => {
             router.push('/')
-
-            if (isModalActive) {
-                tg.MainButton.hide();
-            } else {
-                tg.MainButton.show();
-            }
         });
 
         return () => {
