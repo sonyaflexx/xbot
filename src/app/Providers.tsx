@@ -35,10 +35,25 @@ export default function Providers({ children }: { children: ReactNode }) {
     if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.expand();
+      
+      window.addEventListener('resize', handleResize);
+
+      handleResize();
     } else {
       console.error('Telegram WebApp is not defined');
     }
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
+
+  const handleResize = () => {
+    const webApp = window.Telegram.WebApp;
+    if (webApp.viewportHeight < window.innerHeight) {
+      webApp.expand();
+    }
+  };
 
   if (!isHydrated) {
     return null; 
