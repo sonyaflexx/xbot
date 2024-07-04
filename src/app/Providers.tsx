@@ -31,6 +31,15 @@ export default function Providers({ children }: { children: ReactNode }) {
     setIsHydrated(true);
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    } else {
+      console.error('Telegram WebApp is not defined');
+    }
+  }, []);
+
   if (!isHydrated) {
     return null; 
   }
