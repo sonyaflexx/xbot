@@ -3,12 +3,14 @@ import prisma from '@/lib/prisma';
 
 export async function POST(req: Request) {
   try {
-    const { privateKey, address } = await req.json();
+    const { privateKey, mnemonic, address } = await req.json();
 
     const wallet = await prisma.wallet.create({
       data: {
         address,
-        privateKey,
+        private_key: mnemonic ? null : privateKey,
+        mnemonic: mnemonic ? mnemonic : null,
+        network: 'EVM'
       },
     });
 

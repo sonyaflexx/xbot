@@ -8,7 +8,8 @@ export async function POST(req: Request) {
     const wallet = await prisma.wallet.create({
       data: {
         address,
-        privateKey,
+        private_key: privateKey,
+        network: 'EVM'
       },
     });
 
