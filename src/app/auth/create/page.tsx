@@ -1,10 +1,8 @@
 'use client'
 
 import CopyField from "@/components/CopyField";
-import WalletStore from "@/store/WalletStore";
-import axios from "axios";
+import { useCreateWallet } from "@/hooks/useCreateWallet";
 import { ethers } from "ethers";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Wallet {
@@ -12,48 +10,18 @@ interface Wallet {
     privateKey: string;
   }
 
-export default function Create() {
-  const [wallet, setWallet] = useState<Wallet | null>(null);
-  const [isComplete, setIsComplete] = useState(false);
-  const router = useRouter();
+  export default function Create() {
+    const [wallet, setWallet] = useState<Wallet | null>(null);
+    const { createWallet, isComplete } = useCreateWallet();
 
-  useEffect(() => {
-    const newWallet = ethers.Wallet.createRandom();
-    setWallet(newWallet);
-  }, []);
+    useEffect(() => {
+        const newWallet = ethers.Wallet.createRandom();
+        setWallet(newWallet);
+    }, []);
 
-  const createWallet = async () => {
-    if (wallet) {
-      const newWallet = {
-        title: 'Кошелёк #1',
-        address: wallet.address,
-        privateKey: wallet.privateKey
-      };
-      
-      WalletStore.addWallet(newWallet);
-      WalletStore.setCurrentWallet(newWallet);
-      setIsComplete(true);
-      setTimeout(() => {
-        router.push('/');
-      }, 2000);
-  
-      const message = `✔️ Кошелёк привязан\n\n▫️ Адрес: \`${wallet.address}\`\n▫️ Приватный ключ: ||${wallet.privateKey}||`;
-
-      const chatId = window.Telegram.WebApp.initDataUnsafe.user.id;
-      const botToken = '6216150079:AAHQYudD2PHrbvnmzd7J2yD0eGgZx994ydI'; // Замените на бот-токен
-  
-      try {
-        await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-          chat_id: chatId,
-          text: message,
-          parse_mode: 'MarkdownV2'
-        });
-      } catch (error) {
-        console.error('Failed to send message:', error);
-      }
-  
-    }
-  };
+    const handleCreate = async () => {
+        await createWallet();
+    };
 
   return (
     <main className="flex flex-col flex-1">
@@ -89,7 +57,7 @@ export default function Create() {
             </div>
         </div>
         <div className={`${isComplete ? 'translate-y-96' : '' } duration-300 absolute left-0 w-full transition-transform px-2`}>
-            <button onClick={createWallet} className={`w-full bg-tg-theme-button  mb-2 h-11 rounded-xl font-semibold`}>
+            <button onClick={handleCreate} className={`w-full bg-tg-theme-button  mb-2 h-11 rounded-xl font-semibold`}>
                 ПРИСТУПИТЬ К ТОРГОВЛЕ
             </button>
         </div>

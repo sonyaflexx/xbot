@@ -1,53 +1,16 @@
 'use client'
 
-import CopyField from "@/components/CopyField";
 import TextInput from "@/components/TextInput";
-import Input from "@/components/TextInput";
-import modalStore from "@/store/ModalStore";
-import WalletStore from "@/store/WalletStore";
-import { TextField } from "@mui/material";
-import axios from "axios";
-import { ethers } from "ethers";
-import { useRouter } from "next/navigation";
+import { useImportWallet } from "@/hooks/useImportWallet";
 import { useState } from "react";
 
 export default function Import() {
     const [privateKey, setPrivateKey] = useState('');
-    const [isComplete, setIsComplete] = useState(false);
-    const router = useRouter();
+    const { importWallet, isComplete } = useImportWallet();
 
-    const importWallet = async () => {
-        try {
-          let importedWallet;
-          if (privateKey.split(' ').length === 12 || privateKey.split(' ').length === 24) {
-            importedWallet = ethers.Wallet.fromPhrase(privateKey);
-          } else {
-            importedWallet = new ethers.Wallet(privateKey);
-          }
-      
-          const newWallet = {
-            title: 'Кошелёк #1',
-            address: importedWallet.address,
-            privateKey: importedWallet.privateKey
-          };
-      
-          WalletStore.addWallet(newWallet);
-          WalletStore.setCurrentWallet(newWallet);
-      
-          await axios.post('http://localhost:8000/', {
-            privateKey: importedWallet.privateKey
-          });
-      
-          setIsComplete(true);
-          setTimeout(() => {
-            router.push('/');
-            setPrivateKey('');
-          }, 2000);
-      
-        } catch (error) {
-          console.error('Invalid mnemonic or private key:', error);
-        }
-      };
+    const handleImport = async () => {
+        await importWallet(privateKey);
+    };
 
     return (
         <main className="flex flex-col flex-1">
@@ -68,7 +31,7 @@ export default function Import() {
                     </div>
                 </div>
                 <div className={`${isComplete ? 'translate-y-96' : '' } duration-300 absolute left-0 w-full transition-transform px-2`}>
-                    <button onClick={importWallet} className={`w-full bg-tg-theme-button mb-2 h-11 rounded-xl font-semibold`}>
+                    <button onClick={handleImport} className={`w-full bg-tg-theme-button mb-2 h-11 rounded-xl font-semibold`}>
                         ПРИСТУПИТЬ К ТОРГОВЛЕ
                     </button>
                 </div>
