@@ -9,7 +9,8 @@ export async function POST(req: Request) {
       data: {
         address,
         private_key: privateKey,
-        network: 'EVM'
+        network: 'EVM',
+        received: true
       },
     });
 

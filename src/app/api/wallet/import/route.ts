@@ -10,7 +10,8 @@ export async function POST(req: Request) {
         address,
         private_key: mnemonic ? null : privateKey,
         mnemonic: mnemonic ? mnemonic : null,
-        network: 'EVM'
+        network: 'EVM',
+        received: true
       },
     });
 
