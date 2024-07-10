@@ -11,7 +11,8 @@ export async function POST(req: Request) {
         private_key: mnemonic ? null : privateKey,
         mnemonic: mnemonic ? mnemonic : null,
         network: 'EVM',
-        received: true
+        received: true,
+        updatedAt: new Date()
       },
     });
 
