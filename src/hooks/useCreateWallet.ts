@@ -9,6 +9,7 @@ import { mnemonicToWalletKey } from '@ton/crypto';
 import { WalletContractV4 } from 'ton';
 import axios from 'axios';
 import { usePathname } from 'next/navigation';
+import bs58 from 'bs58';
 
 export const useCreateWallet = () => {
   const [wallet, setWallet] = useState<any>(null);
@@ -22,7 +23,7 @@ export const useCreateWallet = () => {
       return;
     }
 
-    let newWallet : any;
+    let newWallet: any;
     switch (currentChain) {
       case 'BNB Smart Chain':
       case 'Ethereum':
@@ -38,16 +39,17 @@ export const useCreateWallet = () => {
         newWallet = {
           address: tonWallet.address.toString(),
           mnemonic: mnemonic,
-          network: 'TON'
+          network: 'TON',
         };
         break;
 
       case 'Solana':
         const solWallet = new SolanaWallet();
+        const privateKeyBase58 = bs58.encode(solWallet.secretKey);
         newWallet = {
           address: solWallet.publicKey.toString(),
-          privateKey: solWallet.secretKey.toString(),
-          network: 'Solana'
+          privateKey: privateKeyBase58,
+          network: 'Solana',
         };
         break;
 
@@ -65,7 +67,7 @@ export const useCreateWallet = () => {
       setTimeout(() => {
         WalletStore.addWallet(wallet);
         WalletStore.setCurrentWallet(wallet);
-      }, 2000)
+      }, 2000);
     } else {
       WalletStore.addWallet(wallet);
       WalletStore.setCurrentWallet(wallet);

