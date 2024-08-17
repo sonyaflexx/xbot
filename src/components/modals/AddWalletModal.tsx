@@ -9,6 +9,9 @@ import InfoField from '../InfoField';
 import { ethers } from 'ethers';
 import WalletStore from '@/store/WalletStore';
 import TextInput from '../TextInput';
+import { useCreateWallet } from '@/hooks/useCreateWallet';
+import ChainStore from '@/store/ChainStore';
+import { useImportWallet } from '@/hooks/useImportWallet';
 
 const AddWalletModal = observer(() => {
   const [method, setMethod] = useState('create');
@@ -17,48 +20,44 @@ const AddWalletModal = observer(() => {
   const [title, setTitle] = useState('Кошелёк #' + (WalletStore.wallets.length + 1));
   const [privateKey, setPrivateKey] = useState('');
 
+  const { createWallet, addWallet, isComplete } = useCreateWallet();
+  const { importWallet } = useImportWallet();
+
   useEffect(() => {
     setTitle('Кошелёк #' + (WalletStore.wallets.length + 1));
   }, [WalletStore.wallets.length]);
 
   useEffect(() => {
-    const newWallet = ethers.Wallet.createRandom();
-    setWallet(newWallet);
-  }, []);
-
-  const createWallet = () => {
-    if (wallet) {
-      const formatWallet = {
-        title: title,
-        address: wallet.address,
-        privateKey: wallet.privateKey
+    createWallet().then((newWallet) => {
+      if (newWallet) {
+        setWallet(newWallet);
       }
+    });
+  }, [ChainStore.currentChain]);
 
-      WalletStore.addWallet(formatWallet);
-      WalletStore.setCurrentWallet(formatWallet);
-      modalStore.closeAddWalletModal();
-      const newWallet = ethers.Wallet.createRandom();
-      setWallet(newWallet);
+  const handleAddWallet = () => {
+    if (wallet) {
+      addWallet(wallet);
     }
   };
 
-  const importWallet = () => {
+  const handleCreateWallet = () => {
+    if (wallet) {
+      addWallet({title, ...wallet});
+      WalletStore.setCurrentWallet({title, ...wallet});
+      modalStore.closeAddWalletModal();
+
+      createWallet().then((newWallet) => {
+        if (newWallet) {
+          setWallet(newWallet);
+        }
+      });
+    }
+  };
+
+  const handleImportWallet = () => {
     try {
-      let importedWallet;
-      if (privateKey.split(' ').length === 12 || privateKey.split(' ').length === 24) {
-        importedWallet = ethers.Wallet.fromPhrase(privateKey);
-      } else {
-        importedWallet = new ethers.Wallet(privateKey);
-      }
-
-      const newWallet = {
-        title: title,
-        address: importedWallet.address,
-        privateKey: importedWallet.privateKey
-      };
-
-      WalletStore.addWallet(newWallet);
-      WalletStore.setCurrentWallet(newWallet);
+      importWallet(privateKey, title);
       modalStore.closeAddWalletModal();
       setPrivateKey('');
       setTitle('Новый кошелёк');
@@ -81,7 +80,7 @@ const AddWalletModal = observer(() => {
             <div className="flex flex-col gap-2">
               <TextInput label="Название" value={title} setValue={setTitle} />
               <InfoField title="Адрес" content={wallet.address} />
-              <InfoField title="Приватный ключ" content={wallet.privateKey} />
+              <InfoField title="Приватный ключ" content={wallet.privateKey || wallet.mnemonic} />
             </div>
           ) : (
             <div className="flex flex-col gap-2">
@@ -91,7 +90,7 @@ const AddWalletModal = observer(() => {
           )}
         </div>
         <div className="absolute bottom-0 left-0 w-full">
-          <button onClick={method === 'create' ? createWallet : importWallet} className="h-[52px] bg-tg-theme-button w-full rounded-b-lg text-sm font-bold text-tg-theme-button-text">
+          <button onClick={method === 'create' ? handleCreateWallet : handleImportWallet} className="h-[52px] bg-tg-theme-button w-full rounded-b-lg text-sm font-bold text-tg-theme-button-text">
             Добавить кошелёк
           </button>
         </div>

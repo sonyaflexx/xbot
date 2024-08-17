@@ -6,7 +6,7 @@ import modalStore from '@/store/ModalStore';
 import { Wallet } from '@/types';
 
 const WalletList: React.FC = observer(() => {
-  const { wallets, currentWallet, setCurrentWallet, setWallets } = WalletStore;
+  const { wallets, currentWallet, setCurrentWallet } = WalletStore;
 
   const handleClick = (wallet: Wallet) => {
     const data = {
@@ -15,7 +15,7 @@ const WalletList: React.FC = observer(() => {
       privateKey: wallet.privateKey
     };
 
-    setCurrentWallet(data);
+    setCurrentWallet(data as any);
   };
 
   const handleEditWallet = (wallet: Wallet) => {
@@ -31,7 +31,7 @@ const WalletList: React.FC = observer(() => {
           className={`${wallet.address === currentWallet?.address ? 'ring-2 ring-tg-theme-button' : ''} py-[10px] px-3 bg-tg-theme-secondary-bg rounded-xl flex items-center justify-between text-sm gap-3`}
         >
           <div className="flex flex-col flex-1" onClick={() => handleClick(wallet)}>
-            <span className="font-bold">{wallet.title}</span>
+            <span className="font-bold">{wallet.title || 'Кошелёк #1'}</span>
             <span className="font-light text-tg-theme-hint">
               {wallet.address.slice(0, 7)}...{wallet.address.slice(-5)}
             </span>

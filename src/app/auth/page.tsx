@@ -1,7 +1,11 @@
+'use client'
+
 import Link from "next/link";
 import MainButton from "@/components/MainButton";
+import ChainStore from "@/store/ChainStore";
+import { observer } from "mobx-react-lite";
 
-export default function Auth() {
+const Auth = () => {
     return (
         <main className="px-8">
             <div className="leading-none flex gap-2">
@@ -21,16 +25,20 @@ export default function Auth() {
                         href="auth/create"
                     />
                 </li>
-                <li>
-                    <MainButton
-                        type="link"
-                        icon="🔗"
-                        title="Привязать кошелёк"
-                        description="Импорт по приватному ключу или секретной фразе"
-                        href="auth/import"
-                    />
-                </li>
+                { ChainStore.currentChain && ChainStore.currentChain?.name !== 'The Open Network' && 
+                    <li>
+                        <MainButton
+                            type="link"
+                            icon="🔗"
+                            title="Привязать кошелёк"
+                            description="Импорт по приватному ключу или секретной фразе"
+                            href="auth/import"
+                        />
+                    </li>
+                }
             </ul>
         </main>
     );
 }
+
+export default observer(Auth);

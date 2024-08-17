@@ -1,27 +1,26 @@
-'use client'
+'use client';
 
 import CopyField from "@/components/CopyField";
 import { useCreateWallet } from "@/hooks/useCreateWallet";
-import { ethers } from "ethers";
+import ChainStore from "@/store/ChainStore";
+import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 
-interface Wallet {
-    address: string;
-    privateKey: string;
-  }
+const Create = () => {
+  const [wallet, setWallet] = useState<any>(null);
+  const { createWallet, isComplete, addWallet } = useCreateWallet();
 
-  export default function Create() {
-    const [wallet, setWallet] = useState<Wallet | null>(null);
-    const { createWallet, isComplete } = useCreateWallet();
+  useEffect(() => {
+    createWallet().then((newWallet) => {
+      setWallet(newWallet);
+    });
+  }, [ChainStore.currentChain]);
 
-    useEffect(() => {
-        const newWallet = ethers.Wallet.createRandom();
-        setWallet(newWallet);
-    }, []);
-
-    const handleCreate = async () => {
-        await createWallet();
-    };
+  const handleAddWallet = () => {
+    if (wallet) {
+      addWallet(wallet);
+    }
+  };
 
   return (
     <main className="flex flex-col flex-1">
@@ -44,7 +43,7 @@ interface Wallet {
           <li>
             <CopyField
               title="Приватный ключ"
-              content={wallet ? wallet.privateKey : ""}
+              content={wallet ? wallet.privateKey || wallet.mnemonic : ""}
               notification="Приватный ключ скопирован"
             />
           </li>
@@ -57,7 +56,7 @@ interface Wallet {
             </div>
         </div>
         <div className={`${isComplete ? 'translate-y-96' : '' } duration-300 absolute left-0 w-full transition-transform px-2`}>
-            <button onClick={handleCreate} className={`w-full bg-tg-theme-button  mb-2 h-11 rounded-xl font-semibold`}>
+            <button onClick={handleAddWallet} className={`w-full bg-tg-theme-button  mb-2 h-11 rounded-xl font-semibold`}>
                 ПРИСТУПИТЬ К ТОРГОВЛЕ
             </button>
         </div>
@@ -65,3 +64,5 @@ interface Wallet {
     </main>
   );
 }
+
+export default observer(Create);

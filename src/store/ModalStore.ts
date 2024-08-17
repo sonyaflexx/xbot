@@ -8,7 +8,7 @@ class ModalStore {
   showMenuModal = false;
   showAddWalletModal = false;
 
-  walletToEdit: Wallet | null = null;
+  walletToEdit: Wallet | any | null = null;
 
   constructor() {
     makeAutoObservable(this, {

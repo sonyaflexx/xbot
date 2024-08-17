@@ -9,7 +9,7 @@ export default function Import() {
     const { importWallet, isComplete } = useImportWallet();
 
     const handleImport = async () => {
-        await importWallet(privateKey);
+        await importWallet(privateKey, 'Кошелёк #1');
     };
 
     return (

@@ -11,11 +11,16 @@ import MenuModal from '@/components/modals/MenuModal';
 import AddWalletModal from '@/components/modals/AddWalletModal';
 import { useRouter, usePathname } from 'next/navigation';
 import { NextUIProvider } from '@nextui-org/react';
+import { observer } from 'mobx-react-lite';
 
-export default function Providers({ children }: { children: ReactNode }) {
+const Providers = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    WalletStore.filterWalletsByChain();
+  }, [ChainStore.currentChain])
 
   useEffect(() => {
     const hasWallets = WalletStore.wallets && WalletStore.wallets.length > 0;
@@ -25,7 +30,7 @@ export default function Providers({ children }: { children: ReactNode }) {
     } else if (hasWallets && pathname.startsWith('/auth')) {
       router.push('/');
     }
-  }, [pathname]);
+  }, [pathname, WalletStore.wallets]);
 
   useEffect(() => {
     setIsHydrated(true);
@@ -83,3 +88,5 @@ export default function Providers({ children }: { children: ReactNode }) {
     </NextUIProvider>
   );
 }
+
+export default observer(Providers);
