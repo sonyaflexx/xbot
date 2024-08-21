@@ -4,6 +4,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import modalStore from '@/store/ModalStore';
 import WalletList from '../WalletList';
+import WalletStore from '@/store/WalletStore';
 
 const WalletModal = observer(() => {
   return (
@@ -18,7 +19,7 @@ const WalletModal = observer(() => {
           <WalletList />
         </div>
         <div className="absolute bottom-0 left-0 w-full">
-          <button onClick={modalStore.openAddWalletModal} className="h-[52px] bg-tg-theme-button w-full rounded-b-lg text-sm font-bold text-tg-theme-button-text">
+          <button onClick={modalStore.openAddWalletModal} disabled={WalletStore.wallets.length >= 5} className="h-[52px] bg-tg-theme-button w-full rounded-b-lg text-sm font-bold text-tg-theme-button-text">
             Добавить кошелёк
           </button>
         </div>
