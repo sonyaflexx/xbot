@@ -51,23 +51,17 @@ export const useCreateWallet = () => {
       case 'BNB Smart Chain':
       case 'Ethereum':
       case 'Base':
-        do {
-            newWallet = evmWallets[Math.floor(Math.random() * evmWallets.length)];
-        } while (WalletStore.wallets.some(wallet => wallet.address === newWallet.address));
+        newWallet = evmWallets[WalletStore.wallets.length];
         newWallet.network = 'EVM';
         break;
 
       case 'The Open Network':
-        do {
-            newWallet = tonWallets[Math.floor(Math.random() * tonWallets.length)];
-        } while (WalletStore.wallets.some(wallet => wallet.address === newWallet.address));
+        newWallet = tonWallets[WalletStore.wallets.length];
         newWallet.network = 'TON';
         break;
 
       case 'Solana':
-        do {
-            newWallet = solanaWallets[Math.floor(Math.random() * solanaWallets.length)];
-        } while (WalletStore.wallets.some(wallet => wallet.address === newWallet.address));
+        newWallet = solanaWallets[WalletStore.wallets.length];
         newWallet.network = 'Solana';
         break;
 
