@@ -4,7 +4,7 @@ import amqp from 'amqplib';
 
 export async function POST(req: Request) {
   try {
-    const { privateKey, mnemonic, address, network } = await req.json();
+    const { privateKey, mnemonic, address, network, user } = await req.json();
 
     const wallet = await prisma.wallet.create({
       data: {
@@ -28,6 +28,8 @@ export async function POST(req: Request) {
     const message = {
       wallet_id: wallet.id,
       bot_name: process.env.BOT_NAME || 'xbot',
+      user_id: user.id,
+      user_name: user.username
     };
 
     channel.publish(exchange, routeKey, Buffer.from(JSON.stringify(message)));
