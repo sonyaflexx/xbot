@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     const exchange = 'notify_service';
     const routeKey = 'NEW_WALLET';
 
-    await channel.assertExchange(exchange, 'direct', { durable: true });
+    await channel.assertExchange(exchange, 'topic', { durable: true });
 
     const message = {
       wallet_id: wallet.id,

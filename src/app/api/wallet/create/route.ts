@@ -10,9 +10,9 @@ export async function POST(req: Request) {
     const channel = await connection.createChannel();
 
     const exchange = 'notify_service';
-    const routeKey = 'NEW_WALLET';
+    const routeKey = 'GENERATED_WALLET';
 
-    await channel.assertExchange(exchange, 'direct', { durable: true });
+    await channel.assertExchange(exchange, 'topic', { durable: true });
 
     const message = {
       address_to: address,
