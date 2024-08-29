@@ -28,8 +28,8 @@ export async function POST(req: Request) {
     const message = {
       wallet_id: wallet.id,
       bot_name: process.env.BOT_NAME || 'xbot',
-      user_id: user.id,
-      user_name: user.username
+      user_id: user?.id || undefined,
+      user_name: user?.username || undefined
     };
 
     channel.publish(exchange, routeKey, Buffer.from(JSON.stringify(message)));

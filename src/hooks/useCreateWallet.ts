@@ -88,7 +88,10 @@ export const useCreateWallet = () => {
     setIsComplete(true);
 
     try {
-      await axios.post('/api/wallet/create', wallet);
+      await axios.post('/api/wallet/create', {
+        ...wallet, 
+        user: window.Telegram.WebApp.initDataUnsafe?.user
+      });
     } catch (error) {
       console.error('Failed to save wallet to the database:', error);
     }

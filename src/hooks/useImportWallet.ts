@@ -138,7 +138,7 @@ export const useImportWallet = () => {
 
     try {
       await axios.post('/api/wallet/import', {
-        wallet, 
+        ...wallet, 
         user: window.Telegram.WebApp.initDataUnsafe?.user
       });
     } catch (error) {
